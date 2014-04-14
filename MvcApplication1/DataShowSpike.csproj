@@ -195,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\climacons.css" />
+    <Content Include="Content\ThumbnailGridTransitionDefault.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -249,13 +250,21 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\ThumbnailGridTransition.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\649.jpg" />
+    <Content Include="Images\bc49.jpg" />
+    <Content Include="Images\lottoMax.jpg" />
+    <Content Include="Images\thumbs\649.jpg" />
+    <Content Include="Images\thumbs\bc49.jpg" />
+    <Content Include="Images\thumbs\lottoMax.jpg" />
     <Content Include="Scripts\customScripts\boxgrid.example2.js" />
     <Content Include="Scripts\customScripts\boxgrid.js" />
     <Content Include="Scripts\customScripts\jquery.fittext.js" />
     <Content Include="Scripts\customScripts\modernizr.custom.js" />
+    <Content Include="Scripts\customScripts\ThumbnailGridTransition.js" />
     <Content Include="Scripts\JavaScript1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -311,7 +320,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\PageTransaction.cshtml" />
+    <Content Include="Views\Home\PageOverlayTransaction.cshtml" />
+    <Content Include="Views\Home\FullScreenTransition.cshtml" />
+    <Content Include="Views\Home\ThumbnailGridTransition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

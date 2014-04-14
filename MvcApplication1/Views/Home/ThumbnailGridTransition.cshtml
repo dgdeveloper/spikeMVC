@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "ThumbnailGridTransition";
+}
+
+<h2>ThumbnailGridTransition</h2>
+	<div class="main">
+<ul id="og-grid" class="og-grid">
+    <li>
+        <a href="http://cargocollective.com/jaimemartinez/" data-largesrc="/Images/649.jpg" data-title="lottery 649" data-description="lott 649">
+            <img src="~/Images/thumbs/649.jpg" alt="img01" />
+        </a>
+
+    </li>
+    <li>
+        <a href="http://cargocollective.com/jaimemartinez/" data-largesrc="/Images/bc49.jpg" data-title="lottery bc49" data-description="bc 649">
+            <img src="~/Images/thumbs/bc49.jpg" alt="img02" />
+        </a>
+    </li>
+    <li>
+        <a href="http://cargocollective.com/jaimemartinez/" data-largesrc="/Images/lottoMax.jpg" data-title="lottery lotto max" data-description="lotto max">
+            <img src="~/Images/thumbs/lottoMax.jpg" alt="img03" />
+        </a>
+    </li>
+</ul>
+        	</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/ThumbnailGridTransition")
+    <script>
+        $(function () {
+            Grid.init();
+        });
+	</script>
+}

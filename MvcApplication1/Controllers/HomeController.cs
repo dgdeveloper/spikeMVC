@@ -28,10 +28,21 @@ namespace MvcApplication1.Controllers
 
             return View();
         }
-        public ActionResult PageTransaction()
+        public ActionResult PageOverlayTransaction()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your PageOverlayTransaction";
             return View();
         }
+        public ActionResult FullScreenTransition()
+        {
+            ViewBag.Message = "Your FullScreenTransition";
+            return View();
+        }
+        public ActionResult ThumbnailGridTransition()
+        {
+            ViewBag.Message = "Your FullScreenTransition";
+            return View();
+        }
+        
     }
 }

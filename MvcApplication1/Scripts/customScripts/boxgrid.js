@@ -39,7 +39,7 @@ $special = $event.special.debouncedresize = {
 	threshold: 50
 };
 
-var Boxgrid = (function() {
+var Boxgrid22 = (function() {
 
 	var $items = $( '#rb-grid > li' ),
 		transEndEventNames = {
