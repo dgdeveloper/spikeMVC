@@ -39,16 +39,16 @@ namespace MvcApplication1
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
-            bundles.Add(new StyleBundle("~/Content/DataShow/css").Include("~/Content/DataShowWorkbench.css",
-                                                                          "~/Content/climacons.css",
-                                                                          "~/Content/ThumbnailGridTransition.css",
-                                                                          "~/Content/ThumbnailGridTransitionDefault.css"));
+ 
             bundles.Add(new ScriptBundle("~/bundles/boxgrid").Include("~/Scripts/customScripts/boxgrid.js",
                                                                      "~/Scripts/customScripts/jquery.fittext.js",
                                                                      "~/Scripts/customScripts/modernizr.custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ThumbnailGridTransition").Include("~/Scripts/customScripts/ThumbnailGridTransition.js",
                                                                                       "~/Scripts/customScripts/modernizr.custom.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/FullscreenLayoutPageTransitions").Include("~/Scripts/customScripts/FullscreenLayoutPageTransitions.js",
+                                                                          "~/Scripts/customScripts/modernizr.custom.js"));
         }
        
 

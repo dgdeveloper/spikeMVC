@@ -262,6 +262,8 @@
     <Content Include="Images\thumbs\lottoMax.jpg" />
     <Content Include="Scripts\customScripts\boxgrid.example2.js" />
     <Content Include="Scripts\customScripts\boxgrid.js" />
+    <Content Include="Scripts\customScripts\FullscreenLayoutPageTransitions.js" />
+    <Content Include="Content\FullScreenTransition.css" />
     <Content Include="Scripts\customScripts\jquery.fittext.js" />
     <Content Include="Scripts\customScripts\modernizr.custom.js" />
     <Content Include="Scripts\customScripts\ThumbnailGridTransition.js" />
