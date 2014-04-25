@@ -14,10 +14,17 @@ namespace MvcApplication1
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "D3DataFile",
+                url: "D3Data/{filename}",
+                defaults: new { controller = "Home", action = "D3Data"}
+            );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+
         }
     }
 }

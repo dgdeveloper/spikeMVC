@@ -43,12 +43,23 @@ namespace MvcApplication1
             bundles.Add(new ScriptBundle("~/bundles/boxgrid").Include("~/Scripts/customScripts/boxgrid.js",
                                                                      "~/Scripts/customScripts/jquery.fittext.js",
                                                                      "~/Scripts/customScripts/modernizr.custom.js"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/ThumbnailGridTransition").Include("~/Scripts/customScripts/ThumbnailGridTransition.js",
                                                                                       "~/Scripts/customScripts/modernizr.custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/FullscreenLayoutPageTransitions").Include("~/Scripts/customScripts/FullscreenLayoutPageTransitions.js",
                                                                           "~/Scripts/customScripts/modernizr.custom.js"));
+          //  bundles.UseCdn = true;   //enable CDN support
+
+            //add link to jquery on the CDN
+            //var d3JsCdnPath = "http://d3js.org/d3.v3.min.js";
+
+            //bundles.Add(new ScriptBundle("~/bundles/d3Js",
+            //            d3JsCdnPath).Include(
+            //            "~/Scripts/customScripts/d3.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/d3Js").Include("~/Scripts/customScripts/d3.js"));
+
+
         }
        
 

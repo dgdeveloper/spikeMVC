@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -43,6 +44,18 @@ namespace MvcApplication1.Controllers
             ViewBag.Message = "Your FullScreenTransition";
             return View();
         }
-        
+        public ActionResult D3Spike()
+        {
+            ViewBag.Message = "Your D3 js spike";
+            return View();
+        }
+        [HandleError]
+        public ActionResult D3Data(string filename)
+        {
+            String dataFilePath = Server.MapPath("~\\Content\\D3Data\\" + filename + ".tsv");
+            return File(dataFilePath, "text/plain");
+        }
+
+      
     }
 }

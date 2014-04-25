@@ -1,0 +1,26 @@
+﻿.chart1 div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
+.chart2 div {
+  font: 10px sans-serif;
+  background-color: #4cff00;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: #b200ff;
+}
+
+.chart3 rect {
+  fill: steelblue;
+}
+
+.chart3 text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
