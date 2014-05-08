@@ -20,7 +20,36 @@
 }
 
 .chart3 text {
-  fill: white;
+  fill: #000;
   font: 10px sans-serif;
   text-anchor: end;
+}
+.chart4 rect {
+  fill: #b200ff;
+}
+
+.chart4 text {
+  fill: #000;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.chart4.bar {
+  fill: steelblue;
+}
+
+.chart4.axis text {
+  font: 10px sans-serif;
+  color:black;
+}
+
+.chart4.axis path,
+.chart4.axis line {
+  fill: none;
+  stroke: #808080;
+  shape-rendering: crispEdges;
+}
+
+.chart4.x.axis path {
+  display: none;
 }

@@ -1,0 +1,285 @@
+﻿@{
+    ViewBag.Title = "DcJsSpike";
+}
+
+<h2>DcJsSpike</h2>
+
+<div id="chart-line-hitsperday"></div>
+<div id="chart-ring-year"></div>
+<div style='clear:both;'>
+		<table id="dc-data-table">
+			<thead>
+			<tr class="header">
+				<th>Day</th>
+				<th>TPS 200</th>
+				<th>TPS 302</th>
+				<th>TPS Total</th>
+			</tr>
+			</thead>
+		</table>
+</div> 
+
+<div id="compose-chart-ring-year"></div>
+<div id="compose-chart-line-hitsperday"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/d3Js")
+    @Scripts.Render("~/bundles/crossfilter")
+    @Scripts.Render("~/bundles/dcJs")
+ 
+    <script type="text/javascript">
+        var data = [
+          { date: "12/27/2012", http_404: 2, http_200: 190, http_302: 100 },
+          { date: "12/28/2012", http_404: 2, http_200: 10, http_302: 100 },
+          { date: "12/29/2012", http_404: 1, http_200: 300, http_302: 200 },
+          { date: "12/30/2012", http_404: 2, http_200: 90, http_302: 0 },
+          { date: "12/31/2012", http_404: 2, http_200: 90, http_302: 0 },
+          { date: "01/01/2013", http_404: 2, http_200: 90, http_302: 0 },
+          { date: "01/02/2013", http_404: 1, http_200: 10, http_302: 1 },
+          { date: "01/03/2013", http_404: 2, http_200: 90, http_302: 0 },
+          { date: "01/04/2013", http_404: 2, http_200: 90, http_302: 0 },
+          { date: "01/05/2013", http_404: 2, http_200: 90, http_302: 0 },
+          { date: "01/06/2013", http_404: 2, http_200: 200, http_302: 1 },
+          { date: "01/07/2013", http_404: 1, http_200: 200, http_302: 100 }
+        ];
+
+        var ndx = crossfilter(data);
+        var parseDate = d3.time.format("%m/%d/%Y").parse;
+
+        data.forEach(function(d) {
+            d.date = parseDate(d.date);
+            d.total = d.http_404 + d.http_200 + d.http_302;
+            d.Year = d.date.getFullYear();
+        });
+        var dateDim = ndx.dimension(function (d) { return d.date; });
+        var hits = dateDim.group().reduceSum(function (d) { return d.total; });
+
+        /*each status group*/
+        var status_200 = dateDim.group().reduceSum(function (d) { return d.http_200; });
+        var status_302 = dateDim.group().reduceSum(function (d) { return d.http_302; });
+        var status_404 = dateDim.group().reduceSum(function (d) { return d.http_404; });
+
+
+        var minDate = dateDim.bottom(1)[0].date;
+        var maxDate = dateDim.top(1)[0].date;
+
+        var hitslineChart = dc.lineChart("#chart-line-hitsperday");
+        hitslineChart
+           .width(500).height(200)
+           .dimension(dateDim)
+           .group(status_200, "200")
+           .stack(status_302, "302")
+           .stack(status_404, "404")
+           .renderArea(true)
+           .x(d3.time.scale().domain([minDate, maxDate]))
+           .brushOn(false)
+            .elasticX(true)
+           .legend(dc.legend().x(50).y(10).itemHeight(13).gap(5))
+           .yAxisLabel("Hits per day");
+
+      
+        hitslineChart.title(function (d) { return getvalues(d); })
+        function getvalues(d) {
+            var str = d.key.getDate() + "/" + (d.key.getMonth() + 1) + "/" + d.key.getFullYear() + "\n";
+            var key_filter = dateDim.filter(d.key).top(Infinity);
+            var total = 0
+            key_filter.forEach(function (a) {
+                str += a.status + ": " + a.hits + " Hit(s)\n";
+                total += a.hits;
+            });
+
+            str += "Total:" + total;
+            //remove filter so it doesn't effect the graphs,
+            //this is the only filter so we can do this
+            dateDim.filterAll();
+            return str;
+        }
+        /*pie chart*/
+        var yearDim = ndx.dimension(function (d) { return +d.Year; });
+        var year_total = yearDim.group().reduceSum(function (d) { return d.total; });
+
+        var yearRingChart = dc.pieChart("#chart-ring-year");
+        yearRingChart
+            .width(150).height(150)
+            .dimension(yearDim)
+            .group(year_total)
+            .innerRadius(30);
+
+        $('#chart-ring-year').on('click', function () {
+            var minDate2 = dateDim.bottom(1)[0].date;
+            var maxDate2 = dateDim.top(1)[0].date;
+            hitslineChart.x(d3.time.scale().domain([minDate2, maxDate2]));
+            hitslineChart.redraw();
+        });
+        /*table */
+
+        var datatable = dc.dataTable("#dc-data-table");
+        datatable
+            .dimension(dateDim)
+            .group(function (d) { return d.Year; })
+            // dynamic columns creation using an array of closures
+            .columns([
+                function (d) { return d.date.getDate() + "/" + (d.date.getMonth() + 1) + "/" + d.date.getFullYear(); },
+                function (d) { return d.http_200; },
+                function (d) { return d.http_302; },
+                function (d) { return d.http_404; },
+                function (d) { return d.total; }
+            ]);
+
+
+
+
+
+        /*compose chart*/
+        var composeData = [
+	{ "quarter": "Q1", "hits": 0, "date": "01/01/2011" },
+	{ "quarter": "Q1", "hits": 0, "date": "01/15/2011" },
+	{ "quarter": "Q1", "hits": 0, "date": "02/01/2011" },
+	{ "quarter": "Q1", "hits": 0, "date": "02/15/2011" },
+	{ "quarter": "Q1", "hits": 0, "date": "03/01/2011" },
+	{ "quarter": "Q1", "hits": 0, "date": "03/15/2011" },
+	{ "quarter": "Q2", "hits": 0, "date": "04/01/2011" },
+	{ "quarter": "Q2", "hits": 0, "date": "04/15/2011" },
+	{ "quarter": "Q2", "hits": 0, "date": "05/01/2011" },
+	{ "quarter": "Q2", "hits": 0, "date": "05/15/2011" },
+	{ "quarter": "Q2", "hits": 0, "date": "06/01/2011" },
+	{ "quarter": "Q2", "hits": 0, "date": "06/15/2011" },
+	{ "quarter": "Q3", "hits": 0, "date": "07/01/2011" },
+	{ "quarter": "Q3", "hits": 0, "date": "07/15/2011" },
+	{ "quarter": "Q3", "hits": 0, "date": "08/01/2011" },
+	{ "quarter": "Q3", "hits": 0, "date": "08/15/2011" },
+	{ "quarter": "Q3", "hits": 0, "date": "09/01/2011" },
+	{ "quarter": "Q3", "hits": 0, "date": "09/15/2011" },
+	{ "quarter": "Q4", "hits": 12, "date": "10/01/2011" },
+	{ "quarter": "Q4", "hits": 13, "date": "10/15/2011" },
+	{ "quarter": "Q4", "hits": 16, "date": "11/01/2011" },
+	{ "quarter": "Q4", "hits": 15, "date": "11/15/2011" },
+	{ "quarter": "Q4", "hits": 12, "date": "12/01/2011" },
+	{ "quarter": "Q4", "hits": 10, "date": "12/15/2011" },
+
+	{ "quarter": "Q1", "hits": 25, "date": "01/01/2012" },
+	{ "quarter": "Q1", "hits": 27, "date": "01/15/2012" },
+	{ "quarter": "Q1", "hits": 28, "date": "02/01/2012" },
+	{ "quarter": "Q1", "hits": 26, "date": "02/15/2012" },
+	{ "quarter": "Q1", "hits": 29, "date": "03/01/2012" },
+	{ "quarter": "Q1", "hits": 24, "date": "03/15/2012" },
+	{ "quarter": "Q2", "hits": 36, "date": "04/01/2012" },
+	{ "quarter": "Q2", "hits": 33, "date": "04/15/2012" },
+	{ "quarter": "Q2", "hits": 35, "date": "05/01/2012" },
+	{ "quarter": "Q2", "hits": 35, "date": "05/15/2012" },
+	{ "quarter": "Q2", "hits": 39, "date": "06/01/2012" },
+	{ "quarter": "Q2", "hits": 34, "date": "06/15/2012" },
+	{ "quarter": "Q3", "hits": 41, "date": "07/01/2012" },
+	{ "quarter": "Q3", "hits": 45, "date": "07/15/2012" },
+	{ "quarter": "Q3", "hits": 40, "date": "08/01/2012" },
+	{ "quarter": "Q3", "hits": 42, "date": "08/15/2012" },
+	{ "quarter": "Q3", "hits": 47, "date": "09/01/2012" },
+	{ "quarter": "Q3", "hits": 43, "date": "09/15/2012" },
+	{ "quarter": "Q4", "hits": 55, "date": "10/01/2012" },
+	{ "quarter": "Q4", "hits": 57, "date": "10/15/2012" },
+	{ "quarter": "Q4", "hits": 54, "date": "11/01/2012" },
+	{ "quarter": "Q4", "hits": 53, "date": "11/15/2012" },
+	{ "quarter": "Q4", "hits": 51, "date": "12/01/2012" },
+	{ "quarter": "Q4", "hits": 50, "date": "12/15/2012" },
+
+	{ "quarter": "Q1", "hits": 32, "date": "01/01/2013" },
+	{ "quarter": "Q1", "hits": 36, "date": "01/15/2013" },
+	{ "quarter": "Q1", "hits": 34, "date": "02/01/2013" },
+	{ "quarter": "Q1", "hits": 31, "date": "02/15/2013" },
+	{ "quarter": "Q1", "hits": 33, "date": "03/01/2013" },
+	{ "quarter": "Q1", "hits": 36, "date": "03/15/2013" },
+	{ "quarter": "Q2", "hits": 45, "date": "04/01/2013" },
+	{ "quarter": "Q2", "hits": 40, "date": "04/15/2013" },
+	{ "quarter": "Q2", "hits": 42, "date": "05/01/2013" },
+	{ "quarter": "Q2", "hits": 49, "date": "05/15/2013" },
+	{ "quarter": "Q2", "hits": 44, "date": "06/01/2013" },
+	{ "quarter": "Q2", "hits": 42, "date": "06/15/2013" },
+	{ "quarter": "Q3", "hits": 58, "date": "07/01/2013" },
+	{ "quarter": "Q3", "hits": 53, "date": "07/15/2013" },
+	{ "quarter": "Q3", "hits": 58, "date": "08/01/2013" },
+	{ "quarter": "Q3", "hits": 52, "date": "08/15/2013" },
+	{ "quarter": "Q3", "hits": 54, "date": "09/01/2013" },
+	{ "quarter": "Q3", "hits": 58, "date": "09/15/2013" },
+	{ "quarter": "Q4", "hits": 65, "date": "10/01/2013" },
+	{ "quarter": "Q4", "hits": 63, "date": "10/15/2013" },
+	{ "quarter": "Q4", "hits": 66, "date": "11/01/2013" },
+	{ "quarter": "Q4", "hits": 64, "date": "11/15/2013" },
+	{ "quarter": "Q4", "hits": 68, "date": "12/01/2013" },
+	{ "quarter": "Q4", "hits": 63, "date": "12/15/2013" }
+        ];
+
+        var composeparseDate = d3.time.format("%m/%d/%Y").parse;
+        var composeparseDate2 = d3.time.format("%m/%d").parse;
+        composeData.forEach(function (d) {
+            d.date = composeparseDate(d.date);
+            d.qtime = composeparseDate2((d.date.getMonth() + 1) + "/" + d.date.getDate());
+            d.Year = d.date.getFullYear();
+        });
+        var ndx = crossfilter(composeData);
+
+        /************
+Year Ring
+*************/
+        var composeyearRingChart = dc.pieChart("#compose-chart-ring-year");
+        var composeyearDim = ndx.dimension(function (d) { return +d.Year; });
+        //var year_total = yearDim.group().reduceSum(function(d) {return d.http_200+d.http_302+d.http_404;});
+        var composeyear_total = composeyearDim.group().reduceSum(function (d) { return d.hits; });
+        composeyearRingChart
+            .width(200).height(200)
+            .dimension(composeyearDim)
+            .group(composeyear_total)
+            .innerRadius(60)
+            .legend(dc.legend().x(80).y(70).itemHeight(13).gap(5))
+            .ordinalColors(["#56B2EA","#E064CD","#F8B700","#78CC00","#7B71C5"]);
+
+        /************
+        Stacked Area Chart
+        *************/
+        var composehitslineChart = dc.compositeChart("#compose-chart-line-hitsperday");
+        var composedateDim = ndx.dimension(function (d) { return d.qtime; });
+        var composehits = composedateDim.group().reduceSum(function (d) { return d.hits; });
+        var composeminDate = new Date("01/01/1900");
+        var composemaxDate = new Date("12/30/1900");
+
+        var composehits_2011 = composedateDim.group().reduceSum(function (d) { if (d.Year === 2011) { return d.hits; } else { return 0; } });
+        var composehits_2012 = composedateDim.group().reduceSum(function (d) { if (d.Year === 2012) { return d.hits; } else { return 0; } });
+        var composehits_2013 = composedateDim.group().reduceSum(function (d) { if (d.Year === 2013) { return d.hits; } else { return 0; } });
+
+
+        var compose1 = dc.lineChart(composehitslineChart)
+                     .dimension(composehits)
+                     .ordinalColors(["#56B2EA", "#E064CD", "#F8B700", "#78CC00", "#7B71C5"])
+                     .renderArea(true)
+                     .group(composehits_2011, "2011")
+                     .stack(composehits_2012, "2012")
+                     .stack(composehits_2013, "2013");
+
+        var target_2011 = composedateDim.group().reduceSum(function (d) { if (d.Year === 2011) { return 10; } else { return 0; } });
+        var target_2012 = composedateDim.group().reduceSum(function (d) { if (d.Year === 2012) { return 20; } else { return 0; } });
+        var target_2013 = composedateDim.group().reduceSum(function (d) { if (d.Year === 2013) { return 30; } else { return 0; } });
+        var compose2 = dc.lineChart(composehitslineChart)
+                  .dimension(composedateDim)
+                  .ordinalColors(["#56B2EA", "#E064CD", "#F8B700", "#78CC00", "#7B71C5"])
+                  .group(target_2011, "2011 Target")
+                  .stack(target_2012, "2012 Target")
+                  .stack(target_2013, "2013 Target")
+                  .dashStyle([5, 5]);
+    
+
+        composehitslineChart
+	.width(500).height(200)
+	.x(d3.time.scale().domain([composeminDate, composemaxDate]))
+        .brushOn(false)
+        .legend(dc.legend().x(60).y(10).itemHeight(13).gap(5))
+        .yAxisLabel("Hits Per Day")
+        //.elasticX(true)
+        .compose([compose1, compose2]);
+
+        dc.renderAll();
+    </script>
+}
+
+@section Styles {
+    <link href="@Url.Content("~/Content/dc.css")" rel="stylesheet" type="text/css" />
+  
+}

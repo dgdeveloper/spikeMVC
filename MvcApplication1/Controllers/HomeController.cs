@@ -49,13 +49,16 @@ namespace MvcApplication1.Controllers
             ViewBag.Message = "Your D3 js spike";
             return View();
         }
-        [HandleError]
-        public ActionResult D3Data(string filename)
+         public ActionResult D3Data(string filename)
         {
             String dataFilePath = Server.MapPath("~\\Content\\D3Data\\" + filename + ".tsv");
             return File(dataFilePath, "text/plain");
         }
-
-      
+         public ActionResult DCSpike()
+        {
+             ViewBag.Message = "Your DC JS spike";
+             return View();
+        }
+     
     }
 }

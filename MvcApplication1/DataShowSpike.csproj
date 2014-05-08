@@ -206,6 +206,7 @@
   <ItemGroup>
     <Content Include="Content\chart.css" />
     <Content Include="Content\climacons.css" />
+    <Content Include="Content\dc.css" />
     <Content Include="Content\ThumbnailGridTransitionDefault.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -273,7 +274,9 @@
     <Content Include="Images\thumbs\lottoMax.jpg" />
     <Content Include="Scripts\customScripts\boxgrid.example2.js" />
     <Content Include="Scripts\customScripts\boxgrid.js" />
+    <Content Include="Scripts\customScripts\crossfilter.js" />
     <Content Include="Scripts\customScripts\d3.min.js" />
+    <Content Include="Scripts\customScripts\dc.js" />
     <Content Include="Scripts\customScripts\FullscreenLayoutPageTransitions.js" />
     <Content Include="Content\FullScreenTransition.css" />
     <Content Include="Scripts\customScripts\jquery.fittext.js" />
@@ -340,6 +343,9 @@
     <Content Include="Views\Home\ThumbnailGridTransition.cshtml" />
     <Content Include="Views\Home\D3Spike.cshtml" />
     <Content Include="Content\D3Data\data.tsv" />
+    <Content Include="Views\Home\DCSpike.cshtml">
+      <BrowseToURL>~/Home/DCSpike</BrowseToURL>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

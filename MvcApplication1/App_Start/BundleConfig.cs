@@ -39,7 +39,8 @@ namespace MvcApplication1
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
- 
+
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/boxgrid").Include("~/Scripts/customScripts/boxgrid.js",
                                                                      "~/Scripts/customScripts/jquery.fittext.js",
                                                                      "~/Scripts/customScripts/modernizr.custom.js"));
@@ -49,6 +50,9 @@ namespace MvcApplication1
 
             bundles.Add(new ScriptBundle("~/bundles/FullscreenLayoutPageTransitions").Include("~/Scripts/customScripts/FullscreenLayoutPageTransitions.js",
                                                                           "~/Scripts/customScripts/modernizr.custom.js"));
+
+
+            
           //  bundles.UseCdn = true;   //enable CDN support
 
             //add link to jquery on the CDN
@@ -59,6 +63,9 @@ namespace MvcApplication1
             //            "~/Scripts/customScripts/d3.min.js"));
             bundles.Add(new ScriptBundle("~/bundles/d3Js").Include("~/Scripts/customScripts/d3.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/crossfilter").Include("~/Scripts/customScripts/crossfilter.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dcJs").Include("~/Scripts/customScripts/dc.js"));
 
         }
        
