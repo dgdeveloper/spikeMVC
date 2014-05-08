@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "ScrollingSpike";
+    Layout = "~/Views/Shared/_ScrollingLayout.cshtml";
+}
+
+<Div class="content-wrap" role="main">
+	<p>I’ve spent the past 6-and-a-bit years designing websites, icons and web apps. This year, however, I’d like to spend my downtime exploring new design disciplines like lettering and illustration. This is not to say I’ve lost interest in what I currently do — far from it — I’m just looking to grow as a designer.</p>
+</Div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/ScrollingJs")
+    <script>
+
+	</script>
+}
+
+@section Styles {
+    <link href="@Url.Content("~/Content/Scrolling.css")" rel="stylesheet" type="text/css" />
+   
+}

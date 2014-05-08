@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MvcApplication1.Controllers
 {
+  
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -59,6 +60,10 @@ namespace MvcApplication1.Controllers
              ViewBag.Message = "Your DC JS spike";
              return View();
         }
-     
+         public ActionResult ScrollingSpike()
+         {
+             ViewBag.Message = "Your Scrolling Spike";
+             return View();
+         }
     }
 }
