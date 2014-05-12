@@ -206,7 +206,11 @@
   <ItemGroup>
     <Content Include="Content\chart.css" />
     <Content Include="Content\climacons.css" />
+    <Content Include="Content\CoffeeSpike.css" />
     <Content Include="Content\dc.css" />
+    <Content Include="Content\fluid_skeleton.css" />
+    <Content Include="Content\Image\morning coffe.JPG" />
+    <Content Include="Content\normalize.css" />
     <Content Include="Content\Scrolling.css" />
     <Content Include="Content\ThumbnailGridTransitionDefault.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -283,6 +287,7 @@
     <Content Include="Scripts\customScripts\jquery.fittext.js" />
     <Content Include="Scripts\customScripts\modernizr.custom.js" />
     <Content Include="Scripts\customScripts\ScrollingJs.js" />
+    <Content Include="Scripts\customScripts\skrollr.js" />
     <Content Include="Scripts\customScripts\ThumbnailGridTransition.js" />
     <Content Include="Scripts\customScripts\d3.js" />
     <Content Include="Scripts\JavaScript1.js" />
@@ -350,6 +355,7 @@
     </Content>
     <Content Include="Views\Shared\_ScrollingLayout.cshtml" />
     <Content Include="Views\Home\ScrollingSpike.cshtml" />
+    <Content Include="Views\Home\ScrollCoffee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

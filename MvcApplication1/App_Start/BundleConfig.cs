@@ -67,6 +67,7 @@ namespace MvcApplication1
 
             bundles.Add(new ScriptBundle("~/bundles/dcJs").Include("~/Scripts/customScripts/dc.js"));
             bundles.Add(new ScriptBundle("~/bundles/ScrollingJs").Include("~/Scripts/customScripts/ScrollingJs.js"));
+            bundles.Add(new ScriptBundle("~/bundles/skrollr").Include("~/Scripts/customScripts/skrollr.js"));
         }
        
 

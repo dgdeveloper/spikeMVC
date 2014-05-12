@@ -65,5 +65,10 @@ namespace MvcApplication1.Controllers
              ViewBag.Message = "Your Scrolling Spike";
              return View();
          }
+         public ActionResult ScrollCoffee()
+         {
+             ViewBag.Message = "Your ScrollCoffee Spike";
+             return View();
+         }
     }
 }
