@@ -68,6 +68,17 @@ namespace MvcApplication1
             bundles.Add(new ScriptBundle("~/bundles/dcJs").Include("~/Scripts/customScripts/dc.js"));
             bundles.Add(new ScriptBundle("~/bundles/ScrollingJs").Include("~/Scripts/customScripts/ScrollingJs.js"));
             bundles.Add(new ScriptBundle("~/bundles/skrollr").Include("~/Scripts/customScripts/skrollr.js"));
+
+            /*kendo UI*/
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+            "~/Scripts/kendo/kendo.all.min.js",
+                // "~/Scripts/kendo/kendo.timezones.min.js", // uncomment if using the Scheduler
+            "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
+            bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
+            "~/Content/kendo/kendo.common.min.css",
+            "~/Content/kendo/kendo.default.min.css"));
+            /*Tell ASP.NET bundles to allow minified files in debug mode.*/
+            bundles.IgnoreList.Clear();
         }
        
 
