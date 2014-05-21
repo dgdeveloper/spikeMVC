@@ -603,6 +603,7 @@
     <Content Include="Scripts\kendo\kendo.view.min.js.map" />
     <Content Include="Scripts\kendo\kendo.web.min.js.map" />
     <Content Include="Scripts\kendo\kendo.window.min.js.map" />
+    <Content Include="Views\Home\kendoUISpike.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -70,5 +70,10 @@ namespace MvcApplication1.Controllers
              ViewBag.Message = "Your ScrollCoffee Spike";
              return View();
          }
+         public ActionResult kendoUISpike()
+         {
+             ViewBag.Message = "Your kendoUI Spike";
+             return View();
+         }
     }
 }
